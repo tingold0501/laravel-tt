@@ -2,8 +2,8 @@ import React from 'react';
 
 const Home = () => {
     return (
-        <div>
-            <h1>Home Contractor</h1>
+        <div className='container'>
+            <h1 className='text-center'>Home Contractor</h1>
         </div>
     );
 }

@@ -8,6 +8,8 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.jsx',
+        "./node_modules/flyonui/dist/js/*.js",
+        "./node_modules/flyonui/dist/js/accordion.js"
     ],
 
     theme: {
@@ -17,6 +19,7 @@ export default {
             },
         },
     },
-
-    plugins: [forms],
+        
+    plugins: [forms, require("flyonui"), require("flyonui/plugin")],
+    
 };
