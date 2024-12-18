@@ -18,6 +18,9 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
         },
+        flyonui: {
+            themes: ["light", "dark", "gourmet", "corporate", "luxury", "soft"]
+        }
     },
         
     plugins: [forms, require("flyonui"), require("flyonui/plugin")],

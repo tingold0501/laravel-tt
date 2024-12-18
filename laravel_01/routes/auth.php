@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
+//  View Contractor
     Route::get('contractor', [ViewContractorController::class, 'viewHome'])
         ->name('contractor.home');
+
 });
