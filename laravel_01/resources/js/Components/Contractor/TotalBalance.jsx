@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from '@inertiajs/react';
 const TotalBalance = () => {
     return (
-        <nav class="navbar rounded-box flex w-full h-[100px] items-center justify-between gap-2 bg-[#025864]">
+        <nav class="navbar rounded-box flex w-full h-[100px] items-center justify-between gap-2 bg-[#025864] mt-5">
             <div class="navbar-start max-md:w-1/4">
                 <a class="link text-base-content/90 link-neutral  font-semibold no-underline" href="#">
                     <h4 className='text-white text-sm mb-1'>Total Balance</h4>
