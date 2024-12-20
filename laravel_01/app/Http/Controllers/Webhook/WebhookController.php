@@ -5,20 +5,19 @@ namespace App\Http\Controllers\Webhook;
 use App\Http\Controllers\Controller;
 use App\Models\Webhook;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
+use Symfony\Component\DomCrawler\Crawler;
 class WebhookController extends Controller
 {
-    public function handle(Request $request)
-    {
-        dd($request->getContent());
-        return response()->json(['message' => 'Webhook received'], 200);
-    }
+    private $endpoint = 'https://moitruongachau.com/vn/du-an.html';
+   
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        
     }
 
     /**

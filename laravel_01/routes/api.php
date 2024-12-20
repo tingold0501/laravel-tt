@@ -3,16 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Webhook\WebhookController;
+use App\Http\Controllers\CrawlController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-//  Webhook
-Route::get('webhook', [WebhookController::class, 'handle'])
-    ->name('webhook.handle');
-    
-// Route::middleware('auth:sanctum')->group(function () {
-//     Route::get('webhook', [WebhookController::class, 'handle'])
-//         ->name('webhook.handle');
-// });
+// Crawl data from moitruongachau.com
+Route::get('/crawl', [CrawlController::class, 'getDataPost']);
+
+Route::get('getDataPost', [CrawlController::class, 'index']);
+

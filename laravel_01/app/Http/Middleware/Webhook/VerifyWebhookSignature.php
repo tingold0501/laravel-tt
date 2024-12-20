@@ -17,15 +17,14 @@ class VerifyWebhookSignature
     public function handle(Request $request, Closure $next): Response
     {
         try {
-            $signature = $request->header('X-Webhook-Signature');
-            if (!$signature) {
-                return response()->json(['message' => 'Webhook signature is missing'], 400);
+            $singature = $request->header('X-Webhook-Signature');
+            if(!$singature) {
+                return response()->json(['message' => 'Invalid signature'], 401);
             }
-
-            $webhookService = app(WebhookServiceProvider::class);
-            $webhookService->verifySignature($signature);
+            $webhookServiceProvider = app(WebhookServiceProvider::class);
+            $webhookServiceProvider->verifySignature($request->getContent(), $singature);
         } catch (\Throwable $th) {
-            return response()->json(['message' => 'Webhook signature is invalid'], 400);
+            return response()->json(['message' => 'Invalid signature'], 401);
         }
         return $next($request);
     }

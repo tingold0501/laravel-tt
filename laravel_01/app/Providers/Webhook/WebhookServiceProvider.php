@@ -6,27 +6,13 @@ use Illuminate\Support\ServiceProvider;
 
 class WebhookServiceProvider extends ServiceProvider
 {
-    public function processWebhook(array $data)
+    public function verifySignature(string $payload, string $signature): void
     {
-        $this->processPayload($data);
-        $event = $data['event'];
-
-        return match($event) {
-            'order.created' => $this->handleOrderCreated($data),
-            'order.updated' => $this->handleOrderUpdated($data),
-            'order.deleted' => $this->handleOrderDeleted($data),
-        };
-    }
-    public function processPayload(array $data)
-    {
-        if(empty($data)) {
-            throw new \Exception('Payload is empty');
+        $secret = config('services.webhook.secret');
+        $computedSignature = hash_hmac('sha256', $payload, $secret);
+        if ($signature !== $computedSignature) {
+            throw new \Exception('Invalid signature');
         }
-        $this->handleData($data);
-    }
-    public function handleData(array $data)
-    {
-        ProcessWebhook::dispatch($data);
     }
     /**
      * Register services.
