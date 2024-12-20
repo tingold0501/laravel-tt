@@ -60,6 +60,7 @@ class CrawlController extends Controller
                 ]
             );
         }
+        dd($data);
         return $data;
     }
 }
