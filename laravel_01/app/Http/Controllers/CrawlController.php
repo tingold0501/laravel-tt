@@ -79,7 +79,7 @@ class CrawlController extends Controller
                 ]
             );
         }
-        // dd($data);
+        dd($data);
         return $data;
     }
     public function getDataTypeProject(){

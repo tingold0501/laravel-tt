@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
-    protected $table = 'address';
+    protected $table = 'addresses';
     protected $fillable = [
-        'name',
+        'id',
         'created_at',
         'updated_at',
+        'name',
     ];
     // protected $fillable = [
     //     'name',
