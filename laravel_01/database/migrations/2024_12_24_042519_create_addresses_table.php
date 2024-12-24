@@ -11,18 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('webhooks', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->json('payload');
             $table->timestamps();
         });
+
+        Schema::table('addresses', function (Blueprint $table) {
+            $table->string('name');
+        });
     }
+
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('webhooks');
+        Schema::dropIfExists('addresses');
     }
 };

@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Webhook\WebhookController;
 use App\Http\Controllers\CrawlController;
 
 Route::get('/user', function (Request $request) {
@@ -10,7 +9,9 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // Crawl data from moitruongachau.com
-Route::get('/crawl', [CrawlController::class, 'getDataPost']);
+Route::get('/crawl', [CrawlController::class, 'getDataProject']);
+Route::get('/crawl-type', [CrawlController::class, 'getDataTypeProject']);
+Route::get('/crawl-address', [CrawlController::class, 'getDataAddress']);
 
-Route::get('getDataPost', [CrawlController::class, 'index']);
+
 
