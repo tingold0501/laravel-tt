@@ -10,11 +10,17 @@ use App\Models\Address;
 
 class CrawlController extends Controller
 {
+
+    private $endpointDoanhNghiep = 'https://vasi.org.vn/thong-tin-doanh-nghiep/page/14';
     private $endpointProject = 'https://moitruongachau.com/vn/du-an.html';
     private $endpointLibrary = 'https://moitruongachau.com/vn/thu-vien.html';
     /**
      * Display a listing of the resource.
      */
+
+    public function __contruct(){
+        $this->getDataDoanhNghiep();
+    }
     public function getDataLibrary(){
         $response = Http::get($this->endpointLibrary);
         $dom = new \DOMDocument();
@@ -153,6 +159,51 @@ class CrawlController extends Controller
                     'type' => $item['type'],
                 ]
             );
+        }
+        // dd($data);
+        return $data;
+    }
+
+
+    public function getDataDoanhNghiep(){
+        $response = Http::get($this->endpointDoanhNghiep);
+        $dom = new \DOMDocument();
+        @$dom->loadHTML(mb_convert_encoding((string) $response->body(), 'HTML-ENTITIES',  'UTF-8'));
+
+        $xpath = new \DOMXPath($dom);
+        $images = $xpath->query('.//div //div[contains(@class, "hoi-vien-search")] //div[contains(@class, "hoi-vien-item")] //a //figure //img');
+        $titles = $xpath->query('.//div //div[contains(@class, "hoi-vien-search")]  //h3 //a');
+        $subs = $xpath->query('.//div //div[contains(@class, "hoi-vien-search")] //div[contains(@class, "info-company-ft")] //div[contains(@class, "info-item")] //a');
+
+        if ($images->length === $titles->length) {
+            foreach ($titles as $key => $title) {
+                $data[] = [
+                    'image' => $images[$key] ? $images[$key]->getAttribute("src") : '',
+                    // 'link' => $title->getAttribute("href"),
+                    'title' => $title->textContent,
+                    'sub' => $subs[$key] ? $subs[$key]->textContent : '',
+                ];
+            }
+        } else {
+            foreach ($titles as $key => $title) {
+                $data[] = [
+                    'image' => isset($images[$key]) ? $images[$key]->getAttribute("src") : '',
+                    // 'link' => $title->getAttribute("href"),
+                    'title' => $title->textContent,
+                    'sub' => isset($subs[$key]) ? $subs[$key]->textContent : '',
+                ];
+            }
+        }
+        foreach ($data as $item) {
+            // Post::updateOrCreate(
+            //     [
+            //         'title' => $item['title'],
+            //         'link' => $item['link'],
+            //         'image' => $item['image'],
+            //         'sub' => $item['sub'],
+            //     ]
+            // );
+            dd($item);
         }
         // dd($data);
         return $data;
